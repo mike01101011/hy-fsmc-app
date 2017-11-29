@@ -26,7 +26,7 @@ class LogoutUser extends React.Component {
     handleSubmit( e ) { // console.log('Logout-handleSubmit');
         e.preventDefault();
         this.props.users.map( (user, iteration) => {
-            if ( user.username === this.state.username ) {
+            if ( user.username === this.state.username && user.active ) {
                 this.deactivateUser( user );
             }
         } )
