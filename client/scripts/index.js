@@ -21,43 +21,27 @@ class App extends React.Component {
         this.fetchActiveUser = this.fetchActiveUser.bind( this );
     }
     render() { console.log('index-render-this.state', this.state);
-        console.log('this.state.activeSession', this.state.activeSession);
         return (
             <Router>
                     { !this.state.activeSession ?
                     <div>
-                        <header>
-                            <h1>App</h1>
-                            <ul>
-                                <li><NavLink to="/create-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Create User</NavLink></li>
-                                <li><NavLink to="/login-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Login User</NavLink></li>
-                            </ul>
-                        </header>
                         <Switch>
-                            { <Route path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } /> }
-                            <Route path="/create-user" render={ () => <CreateUser fetchUsers={ this.fetchUsers } users={ this.state.users } /> } />
-                            <Route path="/login-user" render={ () => <LoginUser fetchUsers={ this.fetchUsers } users={ this.state.users } /> } />
-                            {/* <Route path="/" component={ PageNotFound } /> */}
-                        { <Route component={ PageNotFound } /> }
+                            <Route exact path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } />
+                            <Route path="/create-user" render={ ( props ) => <CreateUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                            <Route path="/login-user" render={ ( props ) => <LoginUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                            <Route path="*" component={ PageNotFound } />
+                            {/* <Route component={ PageNotFound } /> */}
                         </Switch>
                     </div>
                     :
                     <div>
-                        <header>
-                            <h1>App</h1>
-                            <ul>
-                                <li><NavLink to="/delete-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Delete User</NavLink></li>
-                                <li><NavLink to="/edit-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Edit User</NavLink></li>
-                                <li><NavLink to="/logout-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Logout User</NavLink></li>    
-                            </ul>
-                        </header>
                         <Switch>
-                            { <Route path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } /> }
-                            <Route path="/delete-user" render={ () => <DeleteUser fetchUsers={ this.fetchUsers } users={ this.state.users } /> } />
-                            <Route path="/edit-user" render={ () => <EditUser fetchUsers={ this.fetchUsers } users={ this.state.users } /> } />
-                            <Route path="/logout-user" render={ () => <LogoutUser fetchUsers={ this.fetchUsers } users={ this.state.users } /> } />
-                            {/* <Route path="/" component={ PageNotFound } /> */}
-                            { <Route component={ PageNotFound } /> }
+                            <Route exact path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } />
+                            <Route path="/delete-user" render={ ( props ) => <DeleteUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                            <Route path="/edit-user" render={ ( props ) => <EditUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                            <Route path="/logout-user" render={ ( props ) => <LogoutUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                             <Route path="*" component={ PageNotFound } />
+                            {/* <Route component={ PageNotFound } /> */}
                         </Switch>
                     </div>
                     }

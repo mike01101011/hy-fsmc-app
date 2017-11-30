@@ -37,6 +37,7 @@ class CreateUser extends React.Component {
         const user = Object.assign( {}, this.state );
         fetch( '/api/users', {  method: 'POST',  body: JSON.stringify( user ), headers: { 'Content-Type': 'application/json', } } ).then( () => this.props.fetchUsers() );
         this.setState( { username: '', password: '', rank: 0, score: 0, active: false } );
+        this.props.history.push(`/login-user`);
     }
 }
 export default CreateUser;

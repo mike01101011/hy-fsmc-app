@@ -10,6 +10,10 @@ class LoginUser extends React.Component {
         this.activateUser = this.activateUser.bind( this );
     }
     render() { // console.log('login-render-this.state', this.state);
+
+
+console.log('this.history', this.history);
+
         return (
             <div>
                  <h2>Login</h2>
@@ -29,7 +33,8 @@ class LoginUser extends React.Component {
             if ( user.username === this.state.username ) {
                 this.activateUser( user );
             }
-        } )
+        } );
+        this.props.history.push(`/`);
     }
     activateUser( user ) { // console.log('login-updateUser');
         const activeUser = Object.assign( {}, user );

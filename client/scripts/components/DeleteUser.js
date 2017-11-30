@@ -35,6 +35,7 @@ class DeleteUser extends React.Component {
                 this.deleteUser( userId );
             }
         } );
+        this.props.history.push(`/`);
     }
     deleteUser( userId ) {  // console.log('DeleteUser-deleteUser');
         fetch(`/api/users/${ userId }`, { method: 'DELETE' } ).then( () => this.props.fetchUsers() );
