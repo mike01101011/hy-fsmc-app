@@ -18,7 +18,7 @@ class DeleteUser extends React.Component {
             <div>
                 <h2>Delete User</h2>
                 <form onSubmit={ this.handleSubmit }>
-                    <input onChange={ this.handleChange } name="username" type="text" placeholder="Enter new username" value={ this.state.username } />
+                    <input onChange={ this.handleChange } name="username" type="text" placeholder="Enter username to delete" value={ this.state.username } />
                     <button>Delete User</button>
                 </form>
             </div>
@@ -33,9 +33,9 @@ class DeleteUser extends React.Component {
             if ( user.username === this.state.username ) {
                 const userId = user._id;
                 this.deleteUser( userId );
+                this.props.history.push(`/`);
             }
         } );
-        this.props.history.push(`/`);
     }
     deleteUser( userId ) {  // console.log('DeleteUser-deleteUser');
         fetch(`/api/users/${ userId }`, { method: 'DELETE' } ).then( () => this.props.fetchUsers() );

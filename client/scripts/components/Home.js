@@ -15,6 +15,7 @@ const Home = ( props ) => {
 		            	<li><NavLink to="/delete-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Delete User</NavLink></li>
 		            	<li><NavLink to="/edit-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Edit User</NavLink></li>
 		            	<li><NavLink to="/logout-user" activeStyle={ { color: 'yellow' } }  activeClassName="">Logout User</NavLink></li>
+		            	<li><NavLink to="/quiz" activeStyle={ { color: 'yellow' } }  activeClassName="">Quiz</NavLink></li>
 		            </ul>
 				}
 	    </header>

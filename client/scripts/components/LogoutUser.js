@@ -28,9 +28,9 @@ class LogoutUser extends React.Component {
         this.props.users.map( (user, iteration) => {
             if ( user.username === this.state.username && user.active ) {
                 this.deactivateUser( user );
+                this.props.history.push(`/`);
             }
         } );
-        this.props.history.push(`/`);
     }
     deactivateUser( user ) { // console.log('Logout-updateUser');
         const activeUser = Object.assign( {}, user );

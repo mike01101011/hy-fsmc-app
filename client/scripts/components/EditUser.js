@@ -37,9 +37,9 @@ class EditUser extends React.Component {
         this.props.users.map( (user, iteration) => {
             if ( user.username === this.state.username ) {
                 this.updateUser( user );
+                this.props.history.push(`/`);
             }
         } );
-        this.props.history.push(`/`);
     }
     updateUser( user ) { // console.log('EditUser-updateUser');
         const newUser = Object.assign( {}, user );
