@@ -1,8 +1,6 @@
 // index > createuser
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import UserSingle from './UserSingle';
 
 class CreateUser extends React.Component {
     constructor() {  // console.log('CreateUser-constructor');
@@ -14,19 +12,11 @@ class CreateUser extends React.Component {
     render() {  // console.log('CreateUser-render-this.state', this.state);
         return (
             <div>
-                { this.props.activeUser ?
-                    <Router>
-                        <Route path="/quiz/:userId" render={ () => <UserSingle activeUser={ this.props.activeUser } users={ this.state.users } user={ this.state.username } /> } />
-                    </Router>
-                :
-                    <div>
-                        <h2>Create User</h2>
-                        <form onSubmit={ this.handleSubmit }>
-                            <input onChange={ this.handleChange } name="username" type="text" placeholder="Enter new username" value={ this.state.username } />
-                            <button>Create User</button>
-                        </form>
-                    </div>
-                }
+                <h2>Create User</h2>
+                <form onSubmit={ this.handleSubmit }>
+                    <input onChange={ this.handleChange } name="username" type="text" placeholder="Enter new username" value={ this.state.username } />
+                    <button>Create User</button>
+                </form>
             </div>
         )
     }

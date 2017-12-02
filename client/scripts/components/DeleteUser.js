@@ -1,7 +1,6 @@
 // index > deleteuser
 import React from 'react';
 import { render } from 'react-dom';
-import UserSingle from './UserSingle';
 
 class DeleteUser extends React.Component {
     constructor() {  // console.log('DeleteUser-constructor');

@@ -12,16 +12,15 @@ import LoginUser from './components/LoginUser.js';
 import LogoutUser from './components/LogoutUser.js';
 import PageNotFound from './components/PageNotFound.js';
 
-import UserSingle from './components/UserSingle';
-
 class App extends React.Component {
-    constructor() { //console.log('index-constructor');
+    constructor() { // console.log('index-constructor');
         super();
         this.state = { users: [ {} ], activeUser: {}, activeSession: false }
         this.fetchUsers = this.fetchUsers.bind( this );
         this.initiateActiveUser = this.initiateActiveUser.bind( this );
     }
-    render() { console.log('index-render-this.state', this.state);
+    render() { // console.log('index-render-this.state', this.state);
+        console.log('index-render-this.state.activeUser', this.state.activeUser);
         return (
             <Router>
                 <div>
@@ -45,7 +44,7 @@ class App extends React.Component {
             </Router>
         );
     }
-    componentDidMount() { //console.log('index-componentDidMount');
+    componentDidMount() { // console.log('index-componentDidMount');
         this.fetchUsers();
     }
     fetchUsers() { // console.log('index-fetchUsers');

@@ -22,7 +22,6 @@ app.get( '/api/users', users.getUsers ); // localhost:8080
 app.post( '/api/users', users.postUser ); // create-user
 app.delete( '/api/users/:id', users.deleteUser );
 app.put( '/api/users/:id', users.updateUser );
-app.get( '/api/users/:id', users.getUserById );
 
 // This route serves your index.html file (which initializes React)
 app.get( '*', function( req, res, next ) { res.sendFile( path.join( __dirname,'index.html' ) ); } );

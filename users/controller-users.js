@@ -41,9 +41,4 @@ users.updateUser = ( req, res ) => { // console.log('controller-users.js--------
     } );
 }
 
-users.getUserById = ( req, res ) => { // console.log('controller-users.js-----------users.GETUserByID'); //http://localhost:8080/api/users
-    const userId = req.params.id;
-    User.findOne( { _id: userId } ).then( ( doc ) => { res.status( 200 ).send( doc ); } ); // db.users.findOne( { _id: ObjectId( '5a1b23a0b218ddaac1294f3d' ) } )
-}
-
 module.exports = users;
