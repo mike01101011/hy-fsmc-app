@@ -44,10 +44,11 @@ legend,button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
 	margin: 0 auto;
 }
 
-* {
+body {
 	font-family: courier;
 	font-size: 62.5%;
 }
+main { font-size: 1.2em; }
 
 button { margin: 10px; }
 
