@@ -1,4 +1,4 @@
-// index > Logout
+// index > logoutuser
 import React from 'react';
 
 class LogoutUser extends React.Component {
@@ -21,22 +21,18 @@ class LogoutUser extends React.Component {
         );
     }
     handleChange( e ) { // console.log('Logout-handleChange');
-        this.setState( { [ e.target.name ]: e.target.value, } );
+        this.setState( { [ e.target.name ]: e.target.value } );
     }
     handleSubmit( e ) { // console.log('Logout-handleSubmit');
         e.preventDefault();
-        this.props.users.map( (user, iteration) => {
-            if ( user.username === this.state.username && user.active ) {
-                this.deactivateUser( user );
-                this.props.history.push(`/`);
-            }
-        } );
+        this.props.users.map( ( user ) => {
+            if ( user.username === this.state.username && user.active ) { this.deactivateUser( user ); } } );
     }
     deactivateUser( user ) { // console.log('Logout-updateUser');
         const activeUser = Object.assign( {}, user );
         activeUser.active = false;
         fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify( activeUser ), } ).then( () => this.props.fetchUsers() );
-        this.setState( { username: '' } );
+        this.setState( { username: '' }, () => { this.props.history.push(`/`); } );
     }
 }
 export default LogoutUser;

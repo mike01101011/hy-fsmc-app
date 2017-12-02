@@ -1,4 +1,4 @@
-// index > Login
+// index > loginuser
 import React from 'react';
 
 class LoginUser extends React.Component {
@@ -21,22 +21,17 @@ class LoginUser extends React.Component {
         );
     }
     handleChange( e ) { // console.log('login-handleChange');
-        this.setState( { [ e.target.name ]: e.target.value, } );
+        this.setState( { [ e.target.name ]: e.target.value } );
     }
     handleSubmit( e ) { // console.log('login-handleSubmit');
         e.preventDefault();
-        this.props.users.map( (user, iteration) => {
-            if ( user.username === this.state.username ) {
-                this.activateUser( user );
-                this.props.history.push(`/`);
-            }
-        } );
+        this.props.users.map( ( user ) => { if ( user.username === this.state.username ) { this.activateUser( user ); } } );
     }
     activateUser( user ) { // console.log('login-updateUser');
         const activeUser = Object.assign( {}, user );
         activeUser.active = true;
         fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify( activeUser ), } ).then( () => this.props.fetchUsers() );
-        this.setState( { username: '' } );
+        this.setState( { username: '' }, () => { this.props.history.push(`/`); } );
     }
 }
 export default LoginUser;

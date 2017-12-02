@@ -1,3 +1,4 @@
+// index > quiz > question
 import React from 'react';
 
 const Question = ( props ) => {

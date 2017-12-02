@@ -1,33 +1,32 @@
-// x > x
+// index > quiz
 import React from 'react';
-
 import Question from './Question.js';
 import Score from './Score.js';
 
 class Quiz extends React.Component {
     constructor() { // console.log('quiz-constructor');
         super();
-        this.state = { questions: [], question: {}, answer: '', currentQuestionNumber: null, numberOfQuestions: null, score: null };
+        this.state = { questions: [], question: {}, answer: '', currentQuestion: null, totalQuestions: null, score: null };
         this.handleChange = this.handleChange.bind( this );
         this.handleSubmit = this.handleSubmit.bind( this );
         this.fetchQuestions = this.fetchQuestions.bind( this );
-        this.numberOfQuestions = this.numberOfQuestions.bind( this );
-        this.currentQuestion = this.currentQuestion.bind( this );
+        this.questionSetup = this.questionSetup.bind( this );
+        this.nextQuestion = this.nextQuestion.bind( this );
     }
     render() { console.log('quiz-render-this.state', this.state);
         return (
             <div>
-            { this.state.currentQuestionNumber === this.state.numberOfQuestions && this.state.currentQuestionNumber != null ?
-                <Score score={ this.state.score } numberOfQuestions={ this.state.numberOfQuestions } history={ this.props.history } />
+            { this.state.currentQuestion === this.state.totalQuestions && this.state.currentQuestion != null ?
+                <Score score={ this.state.score } totalQuestions={ this.state.totalQuestions } history={ this.props.history } />
             :
                 <div>
                     <h2>Quiz</h2>
-                    <p>Question { this.state.currentQuestionNumber + 1 } of { this.state.numberOfQuestions }</p>
+                    <p>Question { this.state.currentQuestion + 1 } of { this.state.totalQuestions }</p>
                     <form onSubmit={ this.handleSubmit }>
                         <input id={ this.props.id } onChange={ this.handleChange } name="answer" type="text" placeholder="Enter answer" value={ this.state.answer } />
                         <button>Check</button>
                         { this.state.questions.map( ( question, iteration ) => {
-                            if ( iteration === this.state.currentQuestionNumber ) {
+                            if ( iteration === this.state.currentQuestion ) {
                                 return ( <Question key={ question._id } id={ question._id } question={ question.question } /> );
                             }
                         } ) }
@@ -41,14 +40,13 @@ class Quiz extends React.Component {
         this.fetchQuestions();
     }
     fetchQuestions() { // console.log('quiz-fetchQuestions');
-        fetch( '/api/questions' ).then( resp => resp.json() ).then( json => { this.setState( { questions: json } ); } )
-        .then( () => { this.numberOfQuestions(); } );
+        fetch( '/api/questions' ).then( resp => resp.json() ).then( ( json )  => { this.setState( { questions: json }, () => { this.questionSetup(); } ); } );
     }
-    numberOfQuestions() {
-        this.setState( { numberOfQuestions: this.state.questions.length, currentQuestionNumber: 0 }, () => { this.currentQuestion(); } );
+    questionSetup() {
+        this.setState( { totalQuestions: this.state.questions.length, currentQuestion: 0 }, () => { this.nextQuestion(); } );
     }
-    currentQuestion() {
-        this.setState( { question: this.state.questions[ this.state.currentQuestionNumber ] } );
+    nextQuestion() {
+        this.setState( { question: this.state.questions[ this.state.currentQuestion ] } );
     }
     handleChange( e ) { // console.log('question-handleChange');
         this.setState( { [ e.target.name ]: e.target.value, } );
@@ -57,7 +55,7 @@ class Quiz extends React.Component {
         e.preventDefault();
         let score = this.state.score;
         if ( this.state.answer === this.state.question.answer ) { score += 1; }
-        this.setState( { score: score, answer: '', currentQuestionNumber: (this.state.currentQuestionNumber + 1) }, () => { this.currentQuestion(); } );        
+        this.setState( { score: score, answer: '', currentQuestion: (this.state.currentQuestion + 1) }, () => { this.nextQuestion(); } );        
     }
 }
 export default Quiz;

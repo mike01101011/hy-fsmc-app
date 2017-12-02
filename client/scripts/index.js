@@ -19,34 +19,29 @@ class App extends React.Component {
         super();
         this.state = { users: [ {} ], activeUser: {}, activeSession: false }
         this.fetchUsers = this.fetchUsers.bind( this );
-        this.fetchActiveUser = this.fetchActiveUser.bind( this );
+        this.initiateActiveUser = this.initiateActiveUser.bind( this );
     }
     render() { console.log('index-render-this.state', this.state);
         return (
             <Router>
-                    { !this.state.activeSession ?
-                    <div>
-                        <Route path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } />
-                        <Switch>
-                            <Route path="/create-user" render={ ( props ) => <CreateUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
-                            <Route path="/login-user" render={ ( props ) => <LoginUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
-                            {/* <Route path="/.+" component={ PageNotFound } /> */}
-                            <Route component={ PageNotFound } />
-                        </Switch>
-                    </div>
-                    :
-                    <div>
-                        <Route path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } />
-                        <Switch>
-                            <Route path="/quiz" render={ ( props ) => <Quiz activeUser={ this.state.activeUser } history={ props.history } /> } />
-                            <Route path="/delete-user" render={ ( props ) => <DeleteUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
-                            <Route path="/edit-user" render={ ( props ) => <EditUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
-                            <Route path="/logout-user" render={ ( props ) => <LogoutUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
-                            {/* <Route path="/.+" component={ PageNotFound } /> */}
-                            <Route component={ PageNotFound } />
-                        </Switch>
-                    </div>
-                    }
+                <div>
+                    <Route path="/" render={ () => <Home activeSession={ this.state.activeSession } /> } />
+                        { !this.state.activeSession ?
+                            <Switch>
+                                <Route path="/create-user" render={ ( props ) => <CreateUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                                <Route path="/login-user" render={ ( props ) => <LoginUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                                {/* <Route path="/.+" component={ PageNotFound } /> */} <Route component={ PageNotFound } />
+                            </Switch>
+                        :
+                            <Switch>
+                                <Route path="/quiz" render={ ( props ) => <Quiz activeUser={ this.state.activeUser } history={ props.history } /> } />
+                                <Route path="/delete-user" render={ ( props ) => <DeleteUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                                <Route path="/edit-user" render={ ( props ) => <EditUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                                <Route path="/logout-user" render={ ( props ) => <LogoutUser fetchUsers={ this.fetchUsers } users={ this.state.users } history={ props.history } /> } />
+                                {/* <Route path="/.+" component={ PageNotFound } /> */} <Route component={ PageNotFound } />
+                            </Switch>
+                        }
+                </div>
             </Router>
         );
     }
@@ -54,18 +49,10 @@ class App extends React.Component {
         this.fetchUsers();
     }
     fetchUsers() { // console.log('index-fetchUsers');
-        fetch( '/api/users' ).then( resp => resp.json() ).then( json => {
-            this.setState( { users: json, activeUser: {}, activeSession: false } )
-            this.fetchActiveUser( json );
-        } );
+        fetch( '/api/users' ).then( resp => resp.json() ).then( json => { this.setState( { users: json, activeUser: {}, activeSession: false }, () => { this.initiateActiveUser( json ); } ); } );
     }
-    fetchActiveUser( json ) { // console.log('index-fetchActiveUser');
-        json.map( ( user, iteration ) => {
-            if( user.active ) {
-                this.setState( { activeUser: user, activeSession: true } );
-                return
-            }
-        } )
+    initiateActiveUser( json ) { // console.log('index-initiateActiveUser');
+        json.map( ( user, iteration ) => { if( user.active ) { this.setState( { activeUser: user, activeSession: true }, () => { return true } ); } } );
     }
 }
 render(<App />, document.getElementById('app'));

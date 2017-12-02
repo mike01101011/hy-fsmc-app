@@ -18,3 +18,5 @@ nf start
 
 CALLBACK
 this.setState( { activeUser: user }, () => { console.log( this.state.activeUser ) } );
+
+*remove UserSingle.js from CreateUser.js, DeleteUser.js, EditUser.js*

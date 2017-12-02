@@ -1,3 +1,4 @@
+// index > quiz > score
 import React from 'react';
 
 class Score extends React.Component {
@@ -10,7 +11,7 @@ class Score extends React.Component {
 		return(
 			<div>
 			    <h2>Score</h2>
-				<p>{ this.props.score } correct out of { this.props.numberOfQuestions }</p>
+				<p>{ this.props.score } correct out of { this.props.totalQuestions }</p>
 			    <form onSubmit={ this.handleSubmit }>
 			        <button>Finish</button>
 			    </form>
