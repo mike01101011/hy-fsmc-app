@@ -30,7 +30,7 @@ class LoginUser extends React.Component {
     activateUser( user ) { // console.log('login-updateUser');
         const activeUser = Object.assign( {}, user );
         activeUser.active = true;
-        fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify( activeUser ), } ).then( () => this.props.fetchUsers() );
+        fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify( activeUser ) } ).then( () => this.props.fetchUsers() );
         this.setState( { username: '' }, () => { this.props.history.push(`/`); } );
     }
 }

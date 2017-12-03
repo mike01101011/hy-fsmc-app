@@ -16,15 +16,16 @@ app.use( express.static('public') );
 app.use( express.static('assets') );
 
 // Include your own logic here (so it has precedence over the wildcard route below)
-app.get( '/api/questions', questions.getQuestions );
+app.get( '/api/questions', questions.getQuestions ); // display json
+app.get( '/api/users', users.getUsers ); // display json
 
-app.get( '/api/users', users.getUsers ); // localhost:8080
 app.post( '/api/users', users.postUser ); // create-user
-app.delete( '/api/users/:id', users.deleteUser );
-app.put( '/api/users/:id', users.updateUser );
+app.delete( '/api/users/:id', users.deleteUser ); // delete-user
+app.put( '/api/users/:id', users.editUser ); // edit-user
+app.get( '/api/users/:id', users.getUserById ); // 
 
 // This route serves your index.html file (which initializes React)
 app.get( '*', function( req, res, next ) { res.sendFile( path.join( __dirname,'index.html' ) ); } );
 
 // Start your server, and listen on port 8080.
-app.listen(8080, function() { console.log( "8App is now listening on port 8080!" ); })
+app.listen(8080, function() { console.log( "App is now listening on port 8080!" ); })

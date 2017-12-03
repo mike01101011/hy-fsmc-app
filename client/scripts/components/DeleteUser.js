@@ -30,7 +30,7 @@ class DeleteUser extends React.Component {
     }
     deleteUser( userId ) {  // console.log('DeleteUser-deleteUser');
         fetch(`/api/users/${ userId }`, { method: 'DELETE' } ).then( () => this.props.fetchUsers() );
-        this.setState( { username: '', password: '', rank: 0, score: 0, active: false }, () => { this.props.history.push(`/`); } );
+        this.setState( { username: '', password: '', rank: 0, highScore: 0, active: false }, () => { this.props.history.push(`/`); } );
     }
 }
 export default DeleteUser;

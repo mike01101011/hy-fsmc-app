@@ -13,11 +13,11 @@ class Quiz extends React.Component {
         this.questionSetup = this.questionSetup.bind( this );
         this.nextQuestion = this.nextQuestion.bind( this );
     }
-    render() { console.log('quiz-render-this.state', this.state);
+    render() { // console.log('quiz-render-this.state', this.state);
         return (
             <div>
             { this.state.currentQuestion === this.state.totalQuestions && this.state.currentQuestion != null ?
-                <Score score={ this.state.score } totalQuestions={ this.state.totalQuestions } history={ this.props.history } />
+                <Score history={ this.props.history } score={ this.state.score } totalQuestions={ this.state.totalQuestions } activeUser={ this.props.activeUser } fetchUsers={ this.props.fetchUsers } />
             :
                 <div>
                     <h2>Quiz</h2>
@@ -36,7 +36,7 @@ class Quiz extends React.Component {
             </div>
         );
     }
-    componentDidMount() { //console.log('quiz-componentDidMount');
+    componentDidMount() { // console.log('quiz-componentDidMount');
         this.fetchQuestions();
     }
     fetchQuestions() { // console.log('quiz-fetchQuestions');
@@ -49,7 +49,7 @@ class Quiz extends React.Component {
         this.setState( { question: this.state.questions[ this.state.currentQuestion ] } );
     }
     handleChange( e ) { // console.log('question-handleChange');
-        this.setState( { [ e.target.name ]: e.target.value, } );
+        this.setState( { [ e.target.name ]: e.target.value } );
     }
     handleSubmit( e ) { // console.log('question-handleSubmit');
         e.preventDefault();

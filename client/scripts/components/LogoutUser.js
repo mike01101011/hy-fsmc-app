@@ -31,7 +31,7 @@ class LogoutUser extends React.Component {
     deactivateUser( user ) { // console.log('Logout-updateUser');
         const activeUser = Object.assign( {}, user );
         activeUser.active = false;
-        fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify( activeUser ), } ).then( () => this.props.fetchUsers() );
+        fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify( activeUser ) } ).then( () => this.props.fetchUsers() );
         this.setState( { username: '' }, () => { this.props.history.push(`/`); } );
     }
 }

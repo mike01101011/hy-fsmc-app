@@ -31,7 +31,7 @@ class EditUser extends React.Component {
     updateUser( user ) { // console.log('EditUser-updateUser');
         const newUser = Object.assign( {}, user );
         newUser.username = this.state.newUsername;
-        fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify( newUser ), } ).then( () => this.props.fetchUsers() );
+        fetch( `/api/users/${ user._id }`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify( newUser ) } ).then( () => this.props.fetchUsers() );
         this.setState( { username: '', newUsername: '' }, () => { this.props.history.push(`/`); } );
     }
 }
